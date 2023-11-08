@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <title> NW Managment Tool</title>
+        <style>
+            body {text-align: center; background-image: url(background.jpg);}
+            #enterDetails {float: left; width: 50%;  background-color: darkslategray; color: floralwhite;}
+            input {width: 120px;}
+        </style>
+    </head>
+    <body>
+        <div id="enterDetails">
+            <h1>Add the VOD</h1>
+    
+            <h4>Nick</h4> 
+            <input id="enterNick" type="text" required> 
+    
+            <h4>Date</h4> 
+            <input id="enterDate" type="date" required> 
+    
+            <h4>Link</h4> 
+            <input id="enterVod" type="url" required> <br><br>
+    
+            <button id="submit">Submit</button> <br><br>
+        </div>
+    
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyCum-Gm-NjnTEJauB51AsVgTTGXbRtNjjw",
+              authDomain: "new-worl-managment-tool.firebaseapp.com",
+              databaseURL: "https://new-worl-managment-tool-default-rtdb.europe-west1.firebasedatabase.app",
+              projectId: "new-worl-managment-tool",
+              storageBucket: "new-worl-managment-tool.appspot.com",
+              messagingSenderId: "459362488480",
+              appId: "1:459362488480:web:e673ceda25a882607539c5"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+
+            import { getDatabase, set, get, update, remove, ref, child }
+            from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js"
+
+            const db = getDatabase();
+
+            // Enter inp
+            var enterNick =  document.querySelector('#enterNick')
+            var enterDate =  document.querySelector('#enterDate')
+            var enterVod =  document.querySelector('#enterVod')
+
+            // Buttons
+            var submitBtn = document.querySelector('#submit')
+
+            function InsertData() {
+                set( ref(db, "VOD/" + enterNick.value), {
+                    Nick: enterNick.value,
+                    Date : enterDate.value,
+                    Link : enterVod.value
+                })
+                .then(()=> {
+                    alert("Data added successfully!")
+                })
+                .catch((error)=>{
+                    alert(error)
+                });
+
+            }
+
+
+            submitBtn.addEventListener('click', InsertData)
+          </script>
+    </body>
+</html>
